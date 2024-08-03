@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" class="rel">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='images/logo_transparent.png')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>PlayBetter</title>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen sm:py-16">
+    <div class="max-w-md space-y-6 w-full">
+        <div class="bg-white p-8 rounded-lg space-y-6">   
+          <div class="space-y-4">
+            <div class="flex items-center justify-center">
+              <img src="../static/images/logo_transparent.png" alt="PlayBetter" class="h-auto w-64">
+            </div>
+            <h1 class="text-center text-xl">Conectare</h1>
+          </div>
+    
+          <div class="space-y-4">
+            <form class="m-0 space-y-4" method="post" action="/login" onsubmit="login.disabled = true; return true;">
+              <div>
+                <label class="input input-bordered flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                  <input type="email" class="grow" id="email" name="email" placeholder="Email" required/>
+                </label>
+              </div>
+
+              <div>
+                <label class="input input-bordered flex items-center gap-2">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="grow" id="password" name="password" value="" placeholder="Parolă" autocomplete="new-password" required />
+                    <i class="toggle-password far fa-eye-slash" onclick="togglePasswordVisibility('password')"></i>
+                </label>
+              </div>
+                 
+              <div class="flex flex-col pt-4 space-y-2">
+                <button class="btn outline-green-500 hover:bg-green-500 bg-transparent">
+                  Conectați-vă
+                </button>
+              </div>
+    
+            </form>
+    
+          </div>
+          
+        </div>
+            <div class="space-y-4">
+              <div class="text-center">
+                
+                <p>Nu aveți cont? <a href="{{ url_for('register') }}">Înregistrați-vă</a>.</p>
+              </div>
+            </div>
+      </div>     
+</body>
+</html>
+{% include "includes/messages.html" %}
+<script>
+    function togglePasswordVisibility(inputId) {
+        var input = document.getElementById(inputId);
+        var icon = document.querySelector(`#${inputId} + .toggle-password`);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            input.type = "password";
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+</script>

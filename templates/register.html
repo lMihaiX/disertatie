@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='images/logo_transparent.png')}}">
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" class="rel">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>PlayBetter</title>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen sm:py-16">
+  <!-- logo -->
+  <div class="max-w-md space-y-6 w-full">
+    <div class="bg-white p-8 rounded-lg space-y-6">
+      <div class="space-y-4">
+        <div class="flex items-center justify-center">
+          <img src="../static/images/logo_transparent.png" alt="PlayBetter" class="h-auto w-64">
+        </div>
+        <h1 class="text-center text-xl">Înregistrează-te</h1>
+      </div>
+<!-- email -->
+      <div class="space-y-4">
+        <form class="m-0 space-y-4" method="post" action="/register" onsubmit="login.disabled = true; return true;">
+        <div>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="fas fa-envelope"></i>
+              <input type="email" class="grow" id="email" name="email" placeholder="Email" autocomplete="email" required/>
+            </label>
+          </div>
+<!-- nume -->
+          <div>
+            <label class="input input-bordered flex items-center gap-2">
+              <i class="fas fa-user"></i>
+              <input type="text" class="grow" id="name" name="name" placeholder="Nume" autocomplete="given-name" required/>
+            </label>
+          </div>
+<!-- parola -->
+          <div>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="fas fa-lock"></i>
+                <input type="password" class="grow" id="password" name="password" value="" placeholder="Parolă" autocomplete="new-password" required />
+                <i class="toggle-password far fa-eye-slash" onclick="togglePasswordVisibility('password')"></i>
+            </label>
+          </div>
+          <!-- confirmarea parolei -->
+          <div>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="fas fa-lock"></i>
+                <input type="password" class="grow" id="confirm_password" name="confirm_password" value="" placeholder="Confirmă parolă" autocomplete="new-password" required />
+                <i class="toggle-password far fa-eye-slash" onclick="togglePasswordVisibility('confirm_password')"></i>
+            </label>
+          </div>
+<!-- buton de inregistrare -->
+          <div class="flex flex-col pt-4 space-y-2">
+            <button class="btn outline-green-500 hover:bg-green-500 bg-transparent" name="login" type="submit">
+              Înregistrează-te
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+      <!-- redirectionare catre pagina de conectare -->
+    </div>
+    <div class="flex justify-around">
+        <p>Înapoi către pagina de <a href="{{ url_for('login') }}">conectare</a>. </p>
+  </div>
+  
+  
+  </div>
+</body>
+</html>
+{% include "includes/messages.html" %}
+
+<script>
+    function togglePasswordVisibility(inputId) {
+        var input = document.getElementById(inputId);
+        var icon = document.querySelector(`#${inputId} + .toggle-password`);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            input.type = "password";
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+</script>

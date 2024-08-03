@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='images/logo_transparent.png')}}">    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" class="rel">
+    <title>Încarcă o postare</title>
+    <style>
+        /* Stiluri CSS pentru aspect */
+   
+        .box {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+       
+    </style>
+</head>
+<body>
+    {% include "includes/navbar.html" %}
+    <hr>
+    <div class="box">   
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <h1 class="text-3xl text-center my-4">Încarcă o postare</h1>
+            <label for="title">Titlu:</label><br>
+            <input type="text" id="title" name="title" class="input input-bordered w-full" required><br>
+            <label for="description">Descriere:</label><br>
+            <textarea id="description" name="description" class="textarea textarea-bordered w-full" required></textarea><br>
+            <label for="image">Imagine:</label><br>
+            <input type="file" class="file-input file-input-bordered w-full max-w-xs"id="images" name="images" multiple accept="image/*" required /><br>
+            <br>
+            <input class="btn outline-green-500 hover:bg-green-500 bg-transparent" type="submit" value="Încarcă">
+        </form>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='images/logo_transparent.png')}}">    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" class="rel">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>PlayBetter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Stiluri CSS pentru aspect */
+   
+        .box {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+
+        .slider-image {
+            max-height: 300px; /* Adjust height as needed */
+            overflow: hidden;
+        }
+
+        .slider-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .slick-prev {
+  left: 3% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+}
+       
+    </style>
+</head>
+<body>
+    {% include "includes/navbar.html" %}      
+        <hr>
+        <h1 class="text-3xl text-center my-4">Postările tale</h1>
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Grid Card -->
+                {% for post in posts %}
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <!-- Slider -->
+                    <div class="slider-image">
+                        <div class="slider">
+                            {% for image in post['images'] %}
+                            <div><img class="w-full h-auto max-h-72" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image 1"></div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <!-- Card Content -->
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">{{ post['title'] }}</h3>
+                        <p class="text-gray-600">{{ post['description'] }}</p>
+                        <p class="text-gray-500 text-sm mt-2">Author: {{ post['user_id']|get_user_name }}</p>
+                        <p class="text-gray-500 text-sm">Post Date: {{ post['posted_at'].strftime('%Y-%m-%d %H:%M') }}</p>
+                        
+                        
+                        <a href="{{url_for('delete_post',post_id=post['_id'])}}" class="btn btn-outline btn-error">Șterge</a>
+
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    <br>
+
+    {% include "includes/messages.html" %}
+       
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider').slick({
+                dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  adaptiveHeight: true
+            });
+        });
+        </script>
+</body>
+</html>
